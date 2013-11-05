@@ -1,0 +1,108 @@
+ <?PHP self::block("title"); ?> 
+ Todo List Example
+ <?PHP self::endblock(); ?>
+
+
+ <?php self::block("rightcontent"); ?>
+    
+     <h3>My Todo List</h3>
+          <div class='well' id="todo_list">
+          </div>
+           <div class="input-group">
+            <input type="text" class="form-control" id="source_text">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" id="addbutton">Add</button>
+            </span>
+          </div><!-- /input-group -->
+        </div>
+
+    <?php self::block("sourcejs"); ?>
+
+<script type="text/x-handlebars-template" id='list_content_template'>
+	<div class="input-group">
+      <input type="text" class="form-control" value="{{title}}" readonly=true>
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Delete!</button>
+      </span>
+    </div><!-- /input-group -->
+</script>
+
+<script type="text/javascript">
+	$(function(initdata){
+
+		window.list = {
+			add : function(title,id){
+				(function(){
+				var template = Handlebars.compile($("#list_content_template").html()); 
+				var data = {title: title, id: id}; 
+				var div = $("<div></div>").html(template(data)); 
+				
+				var itemid= id; 
+
+				$($(div).find("div span button").get(0)).bind("click",function(){
+					jQuery.ajax({
+						url: "post/delete",
+						type: "post",
+						data: { itemid: itemid }, 
+						success: function(data){
+							if (data.status == true){
+								
+								$("#todo_list").get(0).removeChild($(div).get(0));
+							}
+							else console.log("something went wrong"); 
+						}
+					});
+				});
+
+				$("#todo_list").append(div);
+
+				})();
+				
+			}
+		}
+
+		$("#addbutton").bind("click",function(){
+			jQuery.ajax({
+				url: "post/add",
+				type: "post",
+				data: { item: $("#source_text").val() }, 
+				success: function(data){
+					if (data.status == true){
+						
+						window.list.add(data.value, data.key); 
+						$("#source_text").val(''); 
+					}
+					else console.log("something went wrong"); 
+				}
+			});
+		});
+
+	});
+
+</script>
+
+	<?php self::endblock("sourcejs"); ?>
+
+    <?PHP if (!empty($_SESSION["items"])) :?>
+
+    <script type="text/javascript">
+
+    $(function(){
+    	<?PHP foreach($_SESSION["items"] as $key=>$value): ?>
+    		window.list.add('<?PHP echo $value; ?>', '<?PHP echo $key; ?>'); 
+    	<?PHP endforeach; ?>
+    });
+
+    </script>
+
+    <?PHP endif; ?>
+
+<?php self::endblock();  ?>
+
+<?php self::attach("leftcontent"); ?>   
+How the list works: 
+<pre>  
+<?PHP echo str_replace("<","&lt;",str_replace(">","&gt;",self::getblock("sourcejs"))); ?>
+</pre>
+<?php self::endblock(); 
+self::extend("html/template.master.html"); 

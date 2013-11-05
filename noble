@@ -1,0 +1,58 @@
+<?PHP
+/*
+	Noble (No Bull***) Framework
+	@author : Rulian Estivalletti
+	Licence: GPL 
+	Year: 2013
+	Current Music: Eddie Vedder
+*/
+/// required paths
+define("PATH_ROOT",realpath(dirname(__FILE__))); 
+define("PATH_LIB",realpath(dirname(__FILE__).'/lib/')); 
+define("PATH_APP",realpath(dirname(__FILE__).'/app/')); 
+
+if(php_sapi_name() == "cli") {
+	/// cli request
+
+	$options = getopt("",array("path:","request_method:","data:","hostname:","address:"));
+	if (empty($options['path'])) {
+		die("path required to run in cli mode"); 
+	}
+	else {
+		DEFINE("_REQUEST_URI",$options['path']);
+		DEFINE("_REQUEST_METHOD",(!empty($options['data'])) ? strtoupper($options['request_method']) : 'GET');
+		DEFINE("_REQUEST",(!empty($options['data'])) ? $options['data'] : "");
+		DEFINE("_SERVER_NAME",(!empty($options['hostname'])) ? $options['hostname'] : gethostname());
+		DEFINE("_REMOTE_ADDR",(!empty($options['address'])) ? $options['address'] : gethostname());
+    	DEFINE("_HTTPS",false);
+
+	}
+
+} else {
+	/// web request
+    DEFINE("_REQUEST_URI",$_SERVER["REQUEST_URI"]);
+    DEFINE("_REQUEST_METHOD",$_SERVER["REQUEST_METHOD"]);
+    DEFINE("_REQUEST",http_build_query($_REQUEST));
+    DEFINE("_SERVER_NAME",$_SERVER["SERVER_NAME"]);
+    DEFINE("_REMOTE_ADDR",$_SERVER["REMOTE_ADDR"]);
+    DEFINE("_HTTPS",isset($_SERVER['HTTPS']));
+}
+
+
+/* BOOT UP FIELS */
+require(PATH_LIB.'/autoload.php');
+
+// system tools
+use lib as Library;
+use app as App; 
+use app\controllers as Controller;
+use app\models as Model; 
+use app\templates as Template;
+
+
+/// required components
+Library\Bootstrap::init(); 
+
+$app=new Library\Load(Library\Route::init(preg_replace("/\?.*/","",_REQUEST_URI))); 
+$app->render();
+

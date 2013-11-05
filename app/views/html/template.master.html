@@ -1,0 +1,118 @@
+<html>
+  <head>
+      <title>Noble PHP - The "No Bull****" Framework</title>
+      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap-theme.min.css">
+      <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+  </head>
+  <body>
+ 
+
+      <div class="container">
+      <div class="header">
+        <h3><?PHP self::block("title"); ?>Hello World<?PHP self::endblock("title"); ?></h3>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-9">
+          <?PHP self::block("leftcontent"); ?>
+              <h3>Noble Demo </h3>
+              <p>This TODO list is a sample application built using the Noble Framework </p>
+              <p>I built this framework just to make my life easier, but documentation is still being built up. 
+              So I put together a quick demo app to demonstrate the capabilities of the framework and its simplity in use. 
+               </p>
+              <p>Please view the source of this application in PHP/View/Bootstrap for reference.</p>
+
+          <?PHP self::endblock("leftcontent"); ?>
+        </div>
+
+        <div class="col-lg-3">
+          <?PHP self::block("rightcontent"); ?>
+              This is my default right content
+          <?PHP self::endblock("rightcontent"); ?>
+         
+      </div>
+      <div class="row">
+      <h3>A brief introduction into Noble PHP framework</h3>
+        <p>
+          I built this framework with the need/intent of being
+          a straight forward, no thrills, no magic, purely practical
+          framework. Built out of practical applications, Noble is more
+          of a organizational convention mixed with helping libraries to 
+          help you work, rather than an overly complicated environment that
+          makes things harder by trying to do work for you. 
+        </p>
+            <hr>
+            <h3>Conventions</h3>
+            <p>Organizational conventions are straight foward. They are seperated by functionality typical of a web applicaiton.</p>
+            <p>The framework is organized in the following </p>
+        <pre>
+    ./
+ -- lib
+    -- vendor
+    -- engines
+
+ -- app
+    -- models
+    -- views
+    -- controllers
+    bootstrap.php
+
+ -- www
+    .htaccess
+    index.php
+
+ noble
+ shell.sh
+
+</pre>
+        <hr>
+        <h3>Libraries</h3>
+        <h4>The core files of the framework 
+        <ul>
+          <li>Noble - The main entrance point for the framework, every transaction (http|cli) begins here - Contains path defintions and pointers to libraries</li>
+          <li>Boostrap - Conventions loader, a simple interface for value->key based configurations</li>
+          <li>Template - Defines conventions for interfacing templates with each other and provides inheritance</li>
+          <li>Controllers & Models - The parent class of all controller and models, each extends their parent respectively.</li>
+          <li>Responder - The object which gets passed between all interactions of the framework during a request</li>
+          <li>Route - Provides URL/Cli path handling capabilities, pairs routes to actions and allows for variable path parameters</li>
+        </ul>
+        <hr>
+        <h3>Templating</h3>
+        <p>The goal of the framework was to allow fully naitive php for templating while maintaining 
+        useful behaviors such as template inheritance, extending parent templates, block based templating and block prepending/appending functionality. 
+        <p>When specified to use a template, the framework will include a single starting template and pass all template variables into it.</p>
+        <p>The starting template will be within the "Template" Library, and will have the ability to extend other templates and blocks</p>
+        <p>Inside each template, you can use both standard HTML and PHP, PHP must be used normally with &gt;?php and ?&lt; tags; </p>
+
+        <h4>Blocks</h4>
+        <p>Blocks are overidable section of the template you can reference by name</p> 
+        <pre>
+          /// in the extending template (example. view.home.html)
+          <div>
+            &lt;?php self::block("title"); ?&gt;
+              This is the content of the block
+            &lt;?php self::endblock(); ?&gt;
+          </div>
+          &lt;?php self::extend("html/template.master.html"); ?&gt;
+
+          /// in the base template (template.master.html);
+           <div>
+            &lt;?php self::block("title"); ?&gt;
+              This is the default content of the block
+            &lt;?php self::endblock("title"); ?&gt; //// end a block with its own name to display its content, 
+            /// normally only done on the top most level of the templates where the block is displayed
+          </div>
+        </pre>
+        <h4>Block | Append | Attach</h4>
+        <p>Block - Replaces the content of the block's name with its most granular reference</p> 
+        <p>Append - Adds the content to the before the most granular block reference</p> 
+        <p>Attach - Adds the content of the block after the most granular reference. </p> 
+      </div>
+    </div> <!-- /container -->
+
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+    <script src="js/handlebars-v1.1.0.js"></script>
+  </body>
+</html>
