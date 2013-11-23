@@ -35,8 +35,7 @@ if(php_sapi_name() !== "cli") {
 	session_start();
 }
 
-Library\Route::add("Hello","/")->defaults(array("controller"=>"home","action"=>"hello")); 
-Library\Route::add("Posts","/post/<section>")->defaults(array("controller"=>"posts","action"=>"section")); 
-
-Library\Route::error("Error","/error")->defaults(array("controller"=>"home","action"=>"error")); 
+Library\Route::add("Hello","/noble/")->defaults(array("controller"=>"home","action"=>"hello")); 
+Library\Route::add("Posts","/noble/post/<section>")->defaults(array("controller"=>"posts","action"=>"section")); 
+Library\Route::error("Error","/noble/error")->defaults(array("controller"=>"home","action"=>"error")); 
 
