@@ -89,7 +89,7 @@ Blocks are also nestable.
 * self::attach($varname) - add to the end of a block, after its existing content
 
 
-	Example.. 
+Example Template Syntax:  
 
 	/// view loads home.php
 	
