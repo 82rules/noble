@@ -7,9 +7,15 @@
 	Current Music: Eddie Vedder
 */
 /// required paths
-define("PATH_ROOT",realpath(dirname(__FILE__))); 
-define("PATH_LIB",realpath(dirname(__FILE__).'/lib/')); 
-define("PATH_APP",realpath(dirname(__FILE__).'/app/')); 
+if (!defined("PATH_ROOT")) {
+	define("PATH_ROOT",realpath(dirname(__FILE__))); 
+}
+if (!defined("PATH_LIB")) {
+	define("PATH_LIB",realpath(dirname(__FILE__).'/lib/')); 
+}
+if (!defined("PATH_APP")) {
+	define("PATH_APP",realpath(dirname(__FILE__).'/app/')); 
+}
 
 if(php_sapi_name() == "cli") {
 	/// cli request
