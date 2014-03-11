@@ -136,4 +136,26 @@ Example boostraps
 			)
 	));
 
+# Scaffolding
+	
+Noble does not require scaffolding if you are using it as a stand alone clone from the repo. 
+However, you can add apps using scaffolding to create scaffolding. Scafoolding is handled in the scaffold.php controller so you can extend it
+however you choose. 
+	
+	php noble --path="scaffold/create" --data="path=/path/to/scaffold/to" 
+
+which will create
+	
+	app/
+		models
+		views
+		controllers
+		helpers
+		bootstrap.php
+	www/
+		.htaccess
+		index.php - pointing to app path and noble path 
+
+if you wish to deploy noble as a submodule or seperate library in your application 
+
 
