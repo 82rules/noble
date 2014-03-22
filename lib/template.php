@@ -105,5 +105,10 @@ class Template {
 
 		return $str;
 	}
+
+
+	public static function route($controller,$params=array()){ /// shortcut to \lib\route from template
+		return \lib\Route::url($controller,$params); 
+	}
 }
 

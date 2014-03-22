@@ -69,9 +69,14 @@ class Route {
 
 
 	public static function load($route,$path){
-		
-		$route->extract($path);
-		return $route;
+
+		if (!empty($route)) { 
+			$route->extract($path);
+			return $route;
+		}
+		else {
+			throw new \Exception("Route not found in bootstrap"); 
+		}
 	}
 
 	public static function url($route, $params=array(), $domain=false){

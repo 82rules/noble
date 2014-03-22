@@ -59,6 +59,10 @@ use app\templates as Template;
 /// required components
 Library\Bootstrap::init(); 
 
-$app=new Library\Load(Library\Route::init(preg_replace("/\?.*/","",_REQUEST_URI))); 
-$app->render();
+try { 
+	$app=new Library\Load(Library\Route::init(preg_replace("/\?.*/","",_REQUEST_URI))); 
+	$app->render();
+} catch( Exception $e) {
+	die($e->getMessage());
+}
 

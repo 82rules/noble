@@ -15,10 +15,11 @@ class Autoload {
 
     public function __construct()
     {
-        spl_autoload_register(array($this,'name_space'));
+        spl_autoload_register(array($this,'app'));
         spl_autoload_register(array($this,'library'));
         spl_autoload_register(array($this,'controller'));
         spl_autoload_register(array($this,'model'));
+        spl_autoload_register(array($this,'name_space'));
     }
 
     public function loadfile($dir,$class){
@@ -26,7 +27,6 @@ class Autoload {
     	$path=$dir.'/'.$class.'.php'; 
 
     	$path=strtolower(str_replace('\\','/',$path)); 
-		
 		if (file_exists($path)){
 
 			try { 
@@ -52,13 +52,17 @@ class Autoload {
 
 	}
 
+	public function app($class){
+
+		return $this->loadfile(PATH_APP.'/../',$class);
+	}
+
 	public function library($class){
 
 		return $this->loadfile(PATH_LIB.'/',$class);
 	}
 
 	public function controller($class){
-
 		return $this->loadfile(PATH_APP.'/controllers',$class);
 	}
 

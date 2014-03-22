@@ -24,7 +24,11 @@ class Load {
 			
 			$class='\\app\\controllers\\'.$params['controller'];
 
-			$app = new $class;
+			if (class_exists($class)){
+				$app = new $class;
+			} else {
+				throw new \Exception("Controller $class not found"); 
+			}
 
 			if (!empty($app) && method_exists($app,$params['action'])){
 

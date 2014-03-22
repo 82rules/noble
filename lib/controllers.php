@@ -37,8 +37,14 @@ class Controllers {
 
 	public function section(\lib\Responder $responder){
 
+		if (!empty($responder->context->section) && !empty($responder->context->subsection)) {
+			if (method_exists($this, sprintf('%s_%s',$responder->context->section, $responder->context->subsection))) {
+				$responder = $this->{sprintf('%s_%s',$responder->context->section, $responder->context->subsection)}($responder); 
+			}
+			
+		}
 
-		if (!empty($responder->context->section) && method_exists($this,$responder->context->section)){
+		else if (!empty($responder->context->section) && method_exists($this,$responder->context->section)){
 			$responder = $this->{$responder->context->section}($responder); 
 		}
 
