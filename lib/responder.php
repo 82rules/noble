@@ -59,15 +59,22 @@ class Responder {
 		if (!empty($this->dataOverride)) $this->data=$this->dataOverride;
 		if (!empty($this->template)) {
 			/// renders a template OR data response
-			
 			$template =new Library\Template($this);
+			
 
 			$type=$template->type; 
+
+			try {
+				$content = $template->content();
+			}
+			catch (\Exception $e) {
+				die($e->getMessage()); 
+			}
 			if (method_exists($this, $type)){
-				$this->{$type}($template->content());
+				$this->{$type}($content);
 			}
 			else {
-				$this->html($template->content());
+				$this->html($content);
 			}
 
 

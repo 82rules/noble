@@ -80,6 +80,12 @@ class Route {
 	}
 
 	public static function url($route, $params=array(), $domain=false){
+
+	
+		if (empty(self::$routes[$route])) {
+			throw new \Exception("Unknown route $route in bootstrap"); 
+		}
+
 		$item = clone self::$routes[$route]; 
 		
 		if (!empty($params)) {

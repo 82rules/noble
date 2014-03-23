@@ -12,6 +12,15 @@ class Template {
 	public static $blocks; 
 	public static $append; 
 	public static $attach; 
+
+	public function errorHandler( $errno, $errstr, $errfile, $errline, $errcontext)
+	{
+
+		ob_end_clean();
+		include(PATH_APP.'/views/html/view.error.html');
+		exit();
+	}
+
 	public function __construct(Library\Responder $responder){
 		$this->type=(!empty($responder->template)) ? preg_replace('/.*\.([^\.]+$)/', '$1', $responder->template) : 'json';
 
@@ -19,6 +28,8 @@ class Template {
 			$template=$responder->template; 
 			Library\Template::$data=$responder->data; 
 			$this->path=PATH_APP.'/views/'.$this->type.'/'.$template; 	
+			set_error_handler(array($this,'errorHandler'));
+
 		}
 
 	}
@@ -33,7 +44,11 @@ class Template {
 		ob_start();
 		if (is_file($this->path)){
 			extract(Library\Template::$data);
-			require($this->path);
+			try {
+				require($this->path);
+			} catch (\Exception $e) {
+				throw new Exception($e->getMessage()); 
+			}
 		}
 		else {
 			throw new \Exception("template ".$this->path." was not found"); 
@@ -108,7 +123,13 @@ class Template {
 
 
 	public static function route($controller,$params=array()){ /// shortcut to \lib\route from template
-		return \lib\Route::url($controller,$params); 
+		try {
+			return \lib\Route::url($controller,$params); 
+		}
+		catch(\Exception $e) {
+			trigger_error($e->getMessage()); 
+			exit();
+		}
 	}
 }
 

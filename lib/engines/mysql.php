@@ -21,7 +21,10 @@ class Mysql {
 	public function connect($settings=array()){
 		
 		if ($this->handle == null){
+			$err_level = error_reporting(0);  /// compatiblity with maria db
 			$this->handle = mysql_connect($settings['host'],$settings['user'],$settings['pass']);
+			error_reporting($err_level); 
+
 			if (!$this->handle) {
 				throw new \Exception("Could not connect to database");
 			}
