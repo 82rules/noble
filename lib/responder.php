@@ -39,6 +39,14 @@ class Responder {
 		$this->assign("error",$error);
 	}
 
+	public function render404($error){
+		$this->headers['responseHeader']='HTTP/1.0 404 Not Found';
+		$this->assign("error",$error);
+		$this->sendheaders(); 
+		include(PATH_APP.'/views/html/view.notfound.html');
+		exit();
+	}
+
 	public function sendheaders(){
 		if(php_sapi_name() == "cli") {
 			var_dump($this->headers);

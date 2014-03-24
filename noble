@@ -63,6 +63,8 @@ try {
 	$app=new Library\Load(Library\Route::init(preg_replace("/\?.*/","",_REQUEST_URI))); 
 	$app->render();
 } catch( Exception $e) {
-	die($e->getMessage());
+	$responder =  new \lib\Responder();
+	$responder->render404($e->getMessage());
+	$responder->render();
 }
 
