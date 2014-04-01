@@ -6,9 +6,9 @@ use \lib\engines as Engines;
 
 class Models {
 
-	public $_schema = array();
+	public static $_schema = array();
 
-	public function _validate($data){ /// returns true / false if data is valid or not
+	public static function _validate($data){ /// returns true / false if data is valid or not
 
 		foreach($this->_schema as $key=>$terms){
 			if (preg_match("/required/i",$terms)) { /// item required

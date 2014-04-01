@@ -24,6 +24,10 @@ class Responder {
 		$this->data[$key]=$value; 
 	}
 
+	public function get($key){
+		return $this->data[$key] ?:null; 
+	}
+
 	public function assimulate($blockdata){
 		$this->data=array_merge($this->data,$blockdata);
 	}
