@@ -131,5 +131,9 @@ class Template {
 			exit();
 		}
 	}
+
+	public static function text($key,$comment = '') {
+		return i18n::key($key);
+	}
 }
 
