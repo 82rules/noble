@@ -67,6 +67,7 @@ The framework core files
 		responder.php -- object which controllers recieve and pass thru the application 
 		route.php -- loads desired controller and methods for a given route
 		template.php -- loads the views and provides extended functionality for naitive php templates such as extending, appending, attaching 
+		i18n.php -- loads language files and fetches sentence based on key 
 
 
 # Templating
@@ -87,6 +88,8 @@ Blocks are also nestable.
 * self::endblock(optional $varname) - ends a block. When a block ends with a name, it displays the value of the block, this allows you to control in which template the block is displayed
 * self::append($varname) - add to the top of the block, before the already existing block content
 * self::attach($varname) - add to the end of a block, after its existing content
+* self::route($routeName,array(configs..)) - a shortcut to the \lib\Route::url for fetching urls from bootstrap route config
+* self::text($key) - shortcut to i18n::key function for fetching text based on languae and key
 
 
 Example Template Syntax:  
@@ -135,6 +138,41 @@ Example boostraps
 				..... 
 			)
 	));
+
+Hooks provide a way to load common functions at launch time for availability. 
+
+	Library\Bootstrap::addhook(function(){  
+		new \lib\engines\Session; 
+		\lib\i18n::init('en_us'); /// load language
+	});
+
+
+
+# Routing
+Routing is handled as a regular expression url match to /path requested. 
+The route that will execute will be the first matched pattern given your bootstrap configs,
+so be sure that the most granular routes come first as order is important. 
+
+Routing is then handled as a bubbled even with target, before and after actions available as options. 
+Routes are daisy chained together to allow each section to have both before and after requests. 	
+
+
+	Library\Route::add("ProfileSection","/profile/<id>/section")
+		->defaults(array("controller"=>"profile","action"=>"section"))
+			->before(array("controller"=>"auth","action"=>"required"));
+
+	Library\Route::add("Profile","/profile/<id>")
+		->defaults(array("controller"=>"profile","action"=>"home"))
+			->after(array("controller"=>"auth","action"=>"supressData"));
+
+
+To create a route url from the configs use the \lib\Route::url function. 
+	
+	(in templates, use self::route) 
+	\lib\Route::url("ProfileSection",array("id"=>"12345","section"=>"bio")); 
+
+
+
 
 # Scaffolding
 	
