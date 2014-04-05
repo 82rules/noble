@@ -133,7 +133,8 @@ class Template {
 	}
 
 	public static function text($key,$comment = '') {
-		return i18n::key($key);
+		$text=i18n::key($key);
+		return (is_string($text)) ? $text : $comment; 
 	}
 }
 
