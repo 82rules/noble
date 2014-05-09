@@ -7,6 +7,9 @@
 	Current Music: Eddie Vedder
 */
 /// required paths
+if (!defined("EXECUTE_ROOT")) {
+	define("EXECUTE_ROOT",realpath(dirname('.'))); 
+}
 if (!defined("PATH_ROOT")) {
 	define("PATH_ROOT",realpath(dirname(__FILE__))); 
 }
