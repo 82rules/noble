@@ -26,7 +26,7 @@ if(php_sapi_name() == "cli") {
 	}
 	else {
 		DEFINE("_REQUEST_URI",$options['path']);
-		DEFINE("_REQUEST_METHOD",(!empty($options['data'])) ? strtoupper($options['request_method']) : 'GET');
+		DEFINE("_REQUEST_METHOD",(!empty($options['request_method'])) ? strtoupper($options['request_method']) : 'GET');
 		DEFINE("_REQUEST",(!empty($options['data'])) ? $options['data'] : "");
 		DEFINE("_SERVER_NAME",(!empty($options['hostname'])) ? $options['hostname'] : gethostname());
 		DEFINE("_REMOTE_ADDR",(!empty($options['address'])) ? $options['address'] : gethostname());

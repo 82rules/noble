@@ -11,7 +11,11 @@ class scaffold extends Library\Controllers {
 	public function create(Library\Responder $responder){
 
 		if (!empty($responder->context->path)) { 
-
+			
+			if(!is_dir($responder->context->path)){
+				mkdir($responder->context->path); 
+			}
+			
 			chdir($responder->context->path); 
 			mkdir("app"); 
 			chdir("app"); 
