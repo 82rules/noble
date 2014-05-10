@@ -3,7 +3,7 @@
 use lib as Library;
 
 /* DATABASE CONNECTIONS */
-if (preg_match("/humbl/",_SERVER_NAME)) {
+if (preg_match("/localhost/",_SERVER_NAME)) {
 
 	Library\Bootstrap::environment("default","default"); 
 
@@ -36,8 +36,6 @@ if(php_sapi_name() !== "cli") {
 }
 
 Library\Route::add("Hello","/")->defaults(array("controller"=>"home","action"=>"hello")); 
-Library\Route::add("Posts","/post/<section>")->defaults(array("controller"=>"posts","action"=>"section")); 
-Library\Route::add("Posts","/scaffold/<section>")->defaults(array("controller"=>"scaffold","action"=>"section")); 
-
+Library\Route::add("Scaffold","/scaffold/<section>")->defaults(array("controller"=>"scaffold","action"=>"section")); 
 Library\Route::error("Error","/error")->defaults(array("controller"=>"home","action"=>"error")); 
 
