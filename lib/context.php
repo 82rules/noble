@@ -11,10 +11,7 @@ class Context {
 		parse_str(_REQUEST,$REQUEST);
 		$this->{_REQUEST_METHOD} = $STREAM; 
 		$params=array_merge($REQUEST,$STREAM);
-		foreach($params as $p => $v){
-			$this->{$p} = addslashes($v); 
-		}
-
+		array_walk_recursive($params, function(&$item, $key) { $item=addslashes($item); }); 
 		$this->_rest_=_REQUEST_METHOD; 
 
 	}
