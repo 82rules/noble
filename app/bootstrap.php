@@ -21,10 +21,18 @@ Library\Bootstrap::database("mysql",array(
 		)
 ));
 
+Library\Bootstrap::database("redis",array(
+		"default"=> array(
+			"host"=>"localhost",
+			"port"=>"6379",
+			"timeout"=>3,
+			"expire"=>(60*60)
+		)
+));
 
 /*
 Library\Bootstrap::addhook(function(){
-	new \lib\engines\Session; 
+	new \lib\engines\Session; // redis example 
 });
 */
 

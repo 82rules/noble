@@ -8,7 +8,7 @@ class Session {
 	
 	public function __construct(){
 
-		$model = new Models\Session;
+		$model = new Models\Redsession;
 		ini_set('session.gc_maxlifetime',(60*5));
 		ini_set('session.gc_probability',1);
 		ini_set('session.gc_divisor',100);
