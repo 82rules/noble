@@ -2,6 +2,8 @@
 
 namespace lib\engines; 
 use lib as Library; 
+use app\helpers\logger as Logger; 
+
 class Mysql {
 
 	public $handle; 
@@ -47,7 +49,12 @@ class Mysql {
 		else $query = $sql;
 		$result = mysql_query($query,$this->handle); 
 
+		Logger::writeIf("mysql::query","mysql::query",$query); 
+
 		if (!$result){
+			
+			Logger::write("mysql::query::error",$this->getLastError());
+
 			return $this->getLastError(); 
 		}
 		else return $result; 

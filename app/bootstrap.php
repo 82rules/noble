@@ -12,6 +12,13 @@ if (preg_match("/localhost/",_SERVER_NAME)) {
 	Library\Bootstrap::environment("default","production"); 
 }
 
+Library\Bootstrap::config("logging",array(
+		"default"=> array(
+			"status"=>true
+		)
+));
+
+
 Library\Bootstrap::database("mysql",array(
 		"default"=> array(
 			"host"=>"localhost",
