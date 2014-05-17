@@ -38,8 +38,9 @@ class Redis {
 
 	public function __call($call,$params){
 		if (method_exists($this->handle, $call)) {
-			call_user_func_array(array($this->handle,$call), $params); 
+			return call_user_func_array(array($this->handle,$call), $params); 
 		}
+		return false; 
 	}
 
 }
