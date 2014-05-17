@@ -48,16 +48,5 @@ class SessionRedis extends Library\Models {
 	{
 	    return true; 
 	}
-
-	public static function get($name){ 
-		return isset($_SESSION[$name]) ? $_SESSION[$name] : false; 
-	}
-
-	public static function set($name,$value){ 
-		return $_SESSION[$name] = $value; 
-	}
-
-	public static function del($name){ 
-		return session_unregister($name); 
-	}
+	
 }

@@ -31,5 +31,17 @@ class Session {
 		);
 		session_start();
 	}
+
+	public static function get($name){ 
+		return isset($_SESSION[$name]) ? $_SESSION[$name] : false; 
+	}
+
+	public static function set($name,$value){ 
+		return $_SESSION[$name] = $value; 
+	}
+
+	public static function del($name){ 
+		return session_unregister($name); 
+	}
 	
 }
