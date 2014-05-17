@@ -20,7 +20,7 @@ class Redis {
 
 	public function getSetting($name){
 
-		return (!empty($this->setting[$name])) ? $this->setting[$name] : null;
+		return (!empty($this->settings[$name])) ? $this->settings[$name] : null;
 		
 	}
 

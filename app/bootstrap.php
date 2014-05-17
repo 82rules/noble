@@ -38,9 +38,12 @@ Library\Bootstrap::database("redis",array(
 ));
 
 /*
-Library\Bootstrap::addhook(function(){
-	new \lib\engines\Session; // redis example 
-});
+if(php_sapi_name() !== "cli") {
+	Library\Bootstrap::addhook(function(){
+		new app\helpers\Session; 
+	});
+}
+
 */
 
 

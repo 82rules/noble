@@ -20,6 +20,7 @@ class Autoload {
         spl_autoload_register(array($this,'controller'));
         spl_autoload_register(array($this,'model'));
         spl_autoload_register(array($this,'name_space'));
+        spl_autoload_register(array($this,'shared'));
     }
 
     public function loadfile($dir,$class){
@@ -46,9 +47,15 @@ class Autoload {
 		if (preg_match_all("/([a-zA-Z0-9\_]+)(?:\\\|$)/",$class,$parts)){
 			$components=$parts[1]; 
 			$filename=strtolower(array_pop($components)); 
-			$path=strtolower(PATH_ROOT.'/'.implode("/",$components)); 
+			$path=strtolower(PATH_ROOT.'/'.implode("/",$components));
 			return $this->loadfile($path,$filename); 
 		}
+
+	}
+
+	public function shared($class){ 
+
+		return $this->loadfile(PATH_LIB.'/../app',$class);
 
 	}
 
