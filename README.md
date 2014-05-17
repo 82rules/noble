@@ -197,3 +197,33 @@ which will create
 if you wish to deploy noble as a submodule or seperate library in your application 
 
 
+# Shared Libraries
+
+You can scaffold as many applications around a central library as you wish. 
+Applications can all share libraries from the main central library/app to provide
+common functionality among all apps. 
+For example, lets say you've scaffolded 2 apps around a central /library/noble
+
+	library/
+		noble/
+			app/
+				model/
+					hello.php
+			lib/
+			www/
+
+	app1/
+		app/
+		www/
+			index.php -> app path app1/app
+
+	app2
+		app/
+		www/
+			index.php -> app path app2/app
+
+the namespace app/model/hello.php called from either app1 or app2
+will look for their app(1|2)/model/hello.php respetively and if not provided, will be defaulted to library/noble/app/model/hello.php
+
+This provides apps a mechanism to share prebuilt or shared components without duplicating files. 
+
