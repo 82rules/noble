@@ -53,7 +53,7 @@ if(php_sapi_name() !== "cli") {
 	session_start();
 }
 
-Library\Route::add("Hello","/")->defaults(array("controller"=>"home","action"=>"hello")); 
 Library\Route::add("Scaffold","/scaffold/<section>")->defaults(array("controller"=>"scaffold","action"=>"section")); 
 Library\Route::error("Error","/error")->defaults(array("controller"=>"home","action"=>"error")); 
+Library\Route::add("Hello","/")->defaults(array("controller"=>"home","action"=>"hello")); 
 

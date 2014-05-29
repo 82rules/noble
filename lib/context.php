@@ -13,6 +13,7 @@ class Context {
 		$params=array_merge($REQUEST,$STREAM);
 		array_walk_recursive($params, function(&$item, $key) { $item=addslashes($item); }); 
 		$this->_rest_=_REQUEST_METHOD; 
+		$this->assign($params);
 
 	}
 

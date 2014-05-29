@@ -8,11 +8,11 @@ class scaffold extends Library\Controllers {
 
 		
 
-	public function create(Library\Responder $responder){
+	public function section_create(Library\Responder $responder){
 
 		if (!empty($responder->context->path)) { 
 			
-
+			
 			if(!is_dir($responder->context->path)){
 				mkdir($responder->context->path); 
 			}
@@ -65,8 +65,10 @@ class scaffold extends Library\Controllers {
 			file_put_contents(".htaccess", file_get_contents(PATH_ROOT.'/www/.htaccess'));
 			chdir(".."); 
 			$responder->assign("status","scaffolding complete"); 
-			return $responder; 
 		}
+
+		return $responder; 
+
 	}
 
 }
