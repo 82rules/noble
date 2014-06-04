@@ -89,6 +89,11 @@ class Mysql {
 		}
 	}
 
+	public function lastId(){
+		$id = $this->fetchOne("SELECT LAST_INSERT_ID() as id"); 
+		return $id['id']; 
+	}
+
 	public function getLastError(){
 		return mysql_error();
 	}
